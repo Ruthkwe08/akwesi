@@ -3,10 +3,10 @@ resource "azurerm_resource_group" "mcit420zz5um" {
   location = "canadacentral"
 }
 
-resource "azurerm_web_application_firewall_policy" "example" {
-  name                = "example-wafpolicy"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+resource "azurerm_web_application_firewall_policy" "mcit420zz5um" {
+  name                = "mcit420zz5um-wafpolicy"
+  resource_group_name = azurerm_resource_group.mcit420zz5um.mcit_resource_group_420-ZZ5-UM
+  location            = azurerm_resource_group.mcit420zz5um.canadacentral
 
   custom_rules {
     name      = "Rule1"
