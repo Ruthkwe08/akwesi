@@ -2,8 +2,8 @@ locals{
   lb=[for f in fileset("${path.module}/lbfolder", "[^_]*.yaml") : yamldecode(file("${path.module}/lbfolder/${f}"))]
   azurelb_list = flatten([
     for app in local.lb: [
-      for azurelb in try(app.listoflb, []) :{
-        name=loadbalancer1.lb
+      for one in try(app.listoflb, []) :{
+        name=one.lbname
       }
     ]
 ])
