@@ -1,5 +1,5 @@
 locals{
-  lb=[for f in fileset("${path.module}/lbfolder", "[^_]*.yaml") : yamldecode(file("${path.module}/waffolder/${f}"))]
+  lb=[for f in fileset("${path.module}/lbfolder", "[^_]*.yaml") : yamldecode(file("${path.module}/lbfolder/${f}"))]
   azurelb_list = flatten([
     for app in local.lb: [
       for azurelb in try(app.listoflb, []) :{
