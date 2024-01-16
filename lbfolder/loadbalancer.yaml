@@ -1,2 +1,2 @@
 listoflb:
-  - lb: loadbalancer1
+  - lbname: one
