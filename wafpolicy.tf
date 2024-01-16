@@ -3,7 +3,7 @@ locals{
   azurewafpolicy_list = flatten([
     for app in local.waf_policy: [
       for azurewaf in try(app.listofwafpolicy, []) :{
-        name=azurewaf.policynam
+        name=azurewaf.policyname
       }
     ]
 ])
