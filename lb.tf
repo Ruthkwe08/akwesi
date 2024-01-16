@@ -21,7 +21,7 @@ resource "azurerm_public_ip" "examples" {
 }
 
 resource "azurerm_lb" "examples" {
-  name                = each.value.name
+  name                = name
   location            = azurerm_resource_group.examples.location
   resource_group_name = azurerm_resource_group.examples.name
 
