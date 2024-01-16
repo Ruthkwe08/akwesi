@@ -3,7 +3,7 @@ locals{
   azurelb_list = flatten([
     for app in local.lb: [
       for azurelb in try(app.listoflb, []) :{
-        name=azurelb.name
+        name=loadbalancer1
       }
     ]
 ])
