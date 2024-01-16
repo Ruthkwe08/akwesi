@@ -1,4 +1,13 @@
-resource "azurerm_resource_group" "example" {
+locals{
+  lb=[for f in fileset("${path.module}/waffolder", "[^_]*.yaml") : yamldecode(file("${path.module}/waffolder/${f}"))]
+  azurelb_list = flatten([
+    for app in local.lb: [
+      for azurelb in try(app.listoflb, []) :{
+        name=azurelb.name
+      }
+    ]
+])
+}resource "azurerm_resource_group" "example" {
   name     = "LoadBalancerRG"
   location = "West Europe"
 }
