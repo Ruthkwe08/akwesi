@@ -8,7 +8,7 @@ locals{
     ]
 ])
 }
-resource "azurerm_resource_group" "example1" {
+resource "azurerm_resource_group" "example" {
   name     = "LoadBalancerRG"
   location = "West Europe"
 }
