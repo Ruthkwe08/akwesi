@@ -1,6 +1,6 @@
 locals{
   webapp=[for f in fileset("${path.module}/lbfolder", "[^_]*.yaml") : yamldecode(file("${path.module}/lbfolder/${f}"))]
-  azurelb_list = flatten([
+  azurewebapp_content = flatten([
     for app in local.webapp: [
       for one in try(app.webapp, []) :{
         name=hello.webappname
