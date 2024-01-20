@@ -1,6 +1,13 @@
-provider "azurerm" {
-  features {}
-}
+locals{
+  webapp=[for f in fileset("${path.module}/lbfolder", "[^_]*.yaml") : yamldecode(file("${path.module}/lbfolder/${f}"))]
+  azurelb_list = flatten([
+    for app in local.webapp: [
+      for one in try(app.webapp, []) :{
+        name=hello.webappname
+      }
+    ]
+])
+
 
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
