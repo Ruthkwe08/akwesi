@@ -2,12 +2,12 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "example.ruth" {
+resource "azurerm_resource_group" "example_ruth" {
   name     = "example-resources"
   location = "West Europe"
 }
 
-resource "azurerm_service_plan" "example.ruth" {
+resource "azurerm_service_plan" "example_ruth" {
   name                = "example.ruth"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
@@ -15,7 +15,7 @@ resource "azurerm_service_plan" "example.ruth" {
   sku_name            = "P1v2"
 }
 
-resource "azurerm_linux_web_app" "example.ruth" {
+resource "azurerm_linux_web_app" "example_ruth" {
   name                = "example"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_service_plan.example.location
