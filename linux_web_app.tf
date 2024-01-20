@@ -1,25 +1,50 @@
-provider "azurerm1" {
-  features {}
+# Define variables
+variable "resource_group_name" {
+  type    = string
+  default = "your-resource-group"
 }
 
-resource "azurerm_resource_group" "example_ruth" {
-  name     = "example-resources"
-  location = "West Europe"
+variable "app_service_plan_name" {
+  type    = string
+  default = "your-app-service-plan"
 }
 
-resource "azurerm_service_plan" "example_ruth" {
-  name                = "example.ruth"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  os_type             = "Linux"
-  sku_name            = "P1v2"
+variable "web_app_name" {
+  type    = string
+  default = "your-web-app"
 }
 
-resource "azurerm_linux_web_app" "example_ruth" {
-  name                = "example"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_service_plan.example.location
-  service_plan_id     = azurerm_service_plan.example.id
-
-  site_config {}
+# Azure provider block
+provider "azurerm" {
+  features = {}
+  # Add authentication details or use other methods like Managed Identity
 }
+
+# Resource block for creating an Azure App Service Plan
+resource "azurerm_app_service_plan" "app_service_plan" {
+  name                = var.app_service_plan_name
+  resource_group_name = var.resource_group_name
+  location            = "East US" # Change as needed
+  kind                = "Linux"
+
+  sku {
+    tier = "Basic"
+    size = "B1"
+  }
+}
+
+# Resource block for creating an Azure Web App
+resource "azurerm_app_service" "web_app" {
+  name                = var.web_app_name
+  resource_group_name = var.resource_group_name
+  location            = azurerm_app_service_plan.app_service_plan.location
+  app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
+
+  site_config {
+    linux_fx_version = "DOCKER|your-docker-image-url:tag" # Replace with your Docker image details
+  }
+
+  # Additional configurations such as app settings, connection strings, etc., can be added as needed.
+}
+
+
