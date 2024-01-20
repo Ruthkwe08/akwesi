@@ -14,12 +14,6 @@ variable "web_app_name" {
   default = "your-web-app"
 }
 
-# Azure provider block
-provider "azurerm" {
-  features = {}
-  # Add authentication details or use other methods like Managed Identity
-}
-
 # Resource block for creating an Azure App Service Plan
 resource "azurerm_app_service_plan" "app_service_plan" {
   name                = var.app_service_plan_name
